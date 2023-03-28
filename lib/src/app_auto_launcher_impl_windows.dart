@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:launch_at_startup/src/app_auto_launcher.dart';
 import 'package:win32_registry/win32_registry.dart'
     if (dart.library.html) 'noop.dart';
@@ -19,10 +21,18 @@ class AppAutoLauncherImplWindows extends AppAutoLauncher {
         desiredAccessRights: AccessRights.allAccess,
       );
 
+  RegistryKey get _enabledDisabledRegKey => Registry.openPath(
+        RegistryHive.currentUser,
+        path:
+            r'Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run',
+        desiredAccessRights: AccessRights.allAccess,
+      );
+
   @override
   Future<bool> isEnabled() async {
     String? value = _regKey.getValueAsString(appName);
-    return value == _registryValue;
+
+    return value == _registryValue && await _isEnabled();
   }
 
   @override
@@ -32,6 +42,13 @@ class AppAutoLauncherImplWindows extends AppAutoLauncher {
       RegistryValueType.string,
       _registryValue,
     ));
+
+    final bytes = Uint8List(12);
+    bytes[0] = 2;
+
+    _enabledDisabledRegKey
+        .createValue(RegistryValue(appName, RegistryValueType.binary, bytes));
+
     return true;
   }
 
@@ -39,7 +56,32 @@ class AppAutoLauncherImplWindows extends AppAutoLauncher {
   Future<bool> disable() async {
     if (await isEnabled()) {
       _regKey.deleteValue(appName);
+      _enabledDisabledRegKey.deleteValue(appName);
     }
     return true;
+  }
+
+  Future<bool> _isEnabled() async {
+    final value = _enabledDisabledRegKey.getValue(appName);
+
+    if (value == null) {
+      return true;
+    }
+
+    final data = value.data;
+
+    if (data is! Uint8List) {
+      return false;
+    }
+
+    if (data.length != 12) {
+      return false;
+    }
+
+    if (data[0] == 2) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

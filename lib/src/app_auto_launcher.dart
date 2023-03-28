@@ -20,4 +20,8 @@ class AppAutoLauncher {
   Future<bool> disable() {
     throw UnimplementedError();
   }
+
+  Stream<bool> observeIsEnabled() {
+    throw UnimplementedError();
+  }
 }

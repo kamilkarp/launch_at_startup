@@ -50,6 +50,8 @@ class LaunchAtStartup {
   Future<bool> disable() => _appAutoLauncher.disable();
 
   Future<bool> isEnabled() => _appAutoLauncher.isEnabled();
+
+  Stream<bool> observeIsEnabled() => _appAutoLauncher.observeIsEnabled();
 }
 
 final launchAtStartup = LaunchAtStartup.instance;

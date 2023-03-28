@@ -17,4 +17,9 @@ class AppAutoLauncherImplNoop extends AppAutoLauncher {
   Future<bool> disable() async {
     throw UnsupportedError('disable');
   }
+
+  @override
+  Stream<bool> observeIsEnabled() {
+    throw UnsupportedError('observeIsEnabled');
+  }
 }

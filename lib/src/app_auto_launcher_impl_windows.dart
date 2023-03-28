@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:launch_at_startup/src/app_auto_launcher.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:win32_registry/win32_registry.dart'
     if (dart.library.html) 'noop.dart';
 
@@ -59,6 +60,17 @@ class AppAutoLauncherImplWindows extends AppAutoLauncher {
       _enabledDisabledRegKey.deleteValue(appName);
     }
     return true;
+  }
+
+  @override
+  Stream<bool> observeIsEnabled() {
+    final regKey = _regKey;
+    final enabledKey = _enabledDisabledRegKey;
+
+    return Rx.merge([
+      regKey.observeValuesChanges(),
+      enabledKey.observeValuesChanges(),
+    ]).asyncMap((event) => _isEnabled());
   }
 
   Future<bool> _isEnabled() async {

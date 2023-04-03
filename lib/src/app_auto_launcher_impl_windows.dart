@@ -55,10 +55,9 @@ class AppAutoLauncherImplWindows extends AppAutoLauncher {
 
   @override
   Future<bool> disable() async {
-    if (await isEnabled()) {
-      _regKey.deleteValue(appName);
-      _enabledDisabledRegKey.deleteValue(appName);
-    }
+    _regKey.deleteValue(appName);
+    _enabledDisabledRegKey.deleteValue(appName);
+
     return true;
   }
 
@@ -77,7 +76,7 @@ class AppAutoLauncherImplWindows extends AppAutoLauncher {
     final value = _enabledDisabledRegKey.getValue(appName);
 
     if (value == null) {
-      return true;
+      return false;
     }
 
     final data = value.data;
@@ -90,7 +89,7 @@ class AppAutoLauncherImplWindows extends AppAutoLauncher {
       return false;
     }
 
-    if (data[0] == 2) {
+    if (data[0].isEven) {
       return true;
     } else {
       return false;

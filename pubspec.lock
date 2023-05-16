@@ -57,13 +57,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.16.0"
-  compute:
-    dependency: transitive
-    description:
-      name: compute
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
   dependency_validator:
     dependency: "direct dev"
     description:
@@ -179,6 +172,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.2"
+  plugin_platform_interface:
+    dependency: transitive
+    description:
+      name: plugin_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.4"
   pub_semver:
     dependency: transitive
     description:
@@ -264,12 +264,19 @@ packages:
   win32_registry:
     dependency: "direct main"
     description:
+      name: win32_registry
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
+  win32_registry_observer:
+    dependency: "direct main"
+    description:
       path: "."
-      ref: e313b04a58ad00bf680e44d3e8084973124005b8
-      resolved-ref: e313b04a58ad00bf680e44d3e8084973124005b8
-      url: "https://github.com/kamilkarp/win32_registry.git"
+      ref: a89ec37aa7a41a23334de16a2c81d0bba788c19c
+      resolved-ref: a89ec37aa7a41a23334de16a2c81d0bba788c19c
+      url: "https://github.com/kamilkarp/win32_registry_observer.git"
     source: git
-    version: "1.2.0"
+    version: "0.0.1"
   yaml:
     dependency: transitive
     description:

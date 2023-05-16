@@ -4,6 +4,7 @@ import 'package:launch_at_startup/src/app_auto_launcher.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:win32_registry/win32_registry.dart'
     if (dart.library.html) 'noop.dart';
+import 'package:win32_registry_observer/win32_registry_observer.dart';
 
 class AppAutoLauncherImplWindows extends AppAutoLauncher {
   AppAutoLauncherImplWindows({
@@ -63,13 +64,17 @@ class AppAutoLauncherImplWindows extends AppAutoLauncher {
 
   @override
   Stream<bool> observeIsEnabled() {
-    final regKey = _regKey;
-    final enabledKey = _enabledDisabledRegKey;
-
     return Rx.merge([
-      regKey.observeValuesChanges(),
-      enabledKey.observeValuesChanges(),
-    ]).asyncMap((event) => _isEnabled());
+      Win32RegistryObserver.instance.observeRegistryKey(
+          ObserveRegistryChangeRequest(
+              predefinedKey: RegistryPredefinedKey.currentUser,
+              path: r'Software\Microsoft\Windows\CurrentVersion\Run')),
+      Win32RegistryObserver.instance.observeRegistryKey(
+          ObserveRegistryChangeRequest(
+              predefinedKey: RegistryPredefinedKey.currentUser,
+              path:
+                  r'Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run')),
+    ]).asyncMap((_) => _isEnabled());
   }
 
   Future<bool> _isEnabled() async {

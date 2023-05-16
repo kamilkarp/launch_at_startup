@@ -18,10 +18,11 @@ dependencies:
     sdk: flutter
 
   rxdart: ^0.27.5
-  win32_registry:
+  win32_registry: ^1.0.2
+  win32_registry_observer:
     git:
-      url: https://github.com/kamilkarp/win32_registry.git
-      ref: e313b04a58ad00bf680e44d3e8084973124005b8
+      url: https://github.com/kamilkarp/win32_registry_observer.git
+      ref: a89ec37aa7a41a23334de16a2c81d0bba788c19c
 
 dev_dependencies:
   dependency_validator: ^3.0.0

@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  win32_registry_observer
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

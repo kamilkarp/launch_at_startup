@@ -22,7 +22,7 @@ dependencies:
   win32_registry_observer:
     git:
       url: https://github.com/kamilkarp/win32_registry_observer.git
-      ref: a89ec37aa7a41a23334de16a2c81d0bba788c19c
+      ref: 6de1516edcc9a0e4607701ad06e77474a148ce9b
 
 dev_dependencies:
   dependency_validator: ^3.0.0

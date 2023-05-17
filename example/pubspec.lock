@@ -263,8 +263,8 @@ packages:
     dependency: transitive
     description:
       path: "."
-      ref: a89ec37aa7a41a23334de16a2c81d0bba788c19c
-      resolved-ref: a89ec37aa7a41a23334de16a2c81d0bba788c19c
+      ref: "6de1516edcc9a0e4607701ad06e77474a148ce9b"
+      resolved-ref: "6de1516edcc9a0e4607701ad06e77474a148ce9b"
       url: "https://github.com/kamilkarp/win32_registry_observer.git"
     source: git
     version: "0.0.1"
